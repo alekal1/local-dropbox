@@ -1,10 +1,14 @@
 package ee.cyber.intern.fileserver.constant;
 
+import ee.cyber.intern.fileserver.mapper.FileStorageMapper;
+import org.mapstruct.factory.Mappers;
+
 /***
  * Constant class.
  */
 public class C {
     private static final String API_BASE_PATH = "/api";
+    public static final String LOCAL_STORAGE_PATH = "src/main/resources/localStorage/";
 
     public static final String FILE_API_PATH = API_BASE_PATH + "/file";
     public static final String DIRECTORY_API_PATH = API_BASE_PATH + "/dir";
@@ -16,4 +20,6 @@ public class C {
 
     public static final String FILE_ALREADY_EXISTS_MSG = "File with given name already exists!";
     public static final String FILE_IS_NOT_EXISTS = "File is not exists";
+
+    public static final FileStorageMapper MAPPER = Mappers.getMapper(FileStorageMapper.class);
 }

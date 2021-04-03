@@ -121,6 +121,10 @@ A static HTML file (`spec/api-spec.html`) has been generated from the spec for m
     * _You can run this in your browser and file will be downloaded_
     
 * ``api/file/{id}`` - **DELETE** - Delete file with given ID.
+## Tests
+
+Basic test cases can be found `src/test/java/ee.cyber/intern/fileserver/controller`
+
 ## Deploying
 
 The server can should be deployed using Gradle's `bootRun` task. Using the included Gradle wrapper:

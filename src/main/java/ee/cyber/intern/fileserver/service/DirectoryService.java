@@ -23,6 +23,8 @@ import java.nio.file.Paths;
 import java.util.List;
 import java.util.stream.Collectors;
 
+import static ee.cyber.intern.fileserver.constant.C.LOCAL_STORAGE_PATH;
+import static ee.cyber.intern.fileserver.constant.C.MAPPER;
 import static ee.cyber.intern.fileserver.helper.Companion.updateDirAccessedDay;
 
 
@@ -33,8 +35,6 @@ import static ee.cyber.intern.fileserver.helper.Companion.updateDirAccessedDay;
 public class DirectoryService {
     private final DirectoryRepository directoryRepository;
     private final FileService fileService;
-    private final FileStorageMapper mapper = Mappers.getMapper(FileStorageMapper.class);
-    private final String localStoragePath = "src/main/resources/localStorage/";
 
     @Autowired
     public DirectoryService(
@@ -48,7 +48,7 @@ public class DirectoryService {
     public List<DirectoryDto> getAllDirectories() {
         List<DirectoryEntity> allDirectories = directoryRepository.findAll();
         return allDirectories.stream()
-                .map(mapper::dirEntityToDto)
+                .map(MAPPER::dirEntityToDto)
                 .collect(Collectors.toList());
     }
 
@@ -56,7 +56,7 @@ public class DirectoryService {
     public DirectoryDto getDirectoryById(Long id) {
         if (directoryExists(id)) {
             DirectoryEntity directory = directoryRepository.findById(id).get();
-            return mapper.dirEntityToDto(directory);
+            return MAPPER.dirEntityToDto(directory);
         }
         return null;
     }
@@ -65,10 +65,10 @@ public class DirectoryService {
     @SneakyThrows
     public DirectoryDto createDirectory(DirectoryDto directoryDto){
         /* Top level directory will have local storage path */
-        Path dirPath = Paths.get(localStoragePath + directoryDto.getName());
+        Path dirPath = Paths.get(LOCAL_STORAGE_PATH + directoryDto.getName());
 
         if (createLocalDirectory(dirPath)) {
-            DirectoryEntity entity = mapper.dirDtoToEntity(directoryDto);
+            DirectoryEntity entity = MAPPER.dirDtoToEntity(directoryDto);
             entity.setDirectoryPath(dirPath.toString()); // Set entity path in db
 
             DirectoryEntity directory = directoryRepository.save(entity);
@@ -105,7 +105,7 @@ public class DirectoryService {
             Path newDirPath = Paths.get(parentDirectory.getDirectoryPath() + "/" + directoryDto.getName());
 
             if (createLocalDirectory(newDirPath)) {
-                DirectoryEntity entity = mapper.dirDtoToEntity(directoryDto);
+                DirectoryEntity entity = MAPPER.dirDtoToEntity(directoryDto);
                 /* Set directory parent and directory path to entity in db */
                 entity.setParentDirectory(parentDirectory);
                 entity.setDirectoryPath(newDirPath.toString());
@@ -153,7 +153,7 @@ public class DirectoryService {
     /** Helper method to check if directory is empty */
     private Boolean directoryIsEmpty(Long id) {
         DirectoryEntity directory = directoryRepository.findById(id).get();
-        File dir = new File(localStoragePath + directory.getName());
+        File dir = new File(LOCAL_STORAGE_PATH + directory.getName());
         String[] files = dir.list();
         if ( files == null || files.length == 0) {
             return true;
@@ -173,7 +173,7 @@ public class DirectoryService {
         if (file.getSize() < directoryEntity.getSize().longValue()) {
             long newDirectorySpace = directoryEntity.getSize().longValue() - file.getSize();
 
-            DirectoryDto directoryDto = mapper.dirEntityToDto(directoryEntity);
+            DirectoryDto directoryDto = MAPPER.dirEntityToDto(directoryEntity);
             directoryDto.setSize(BigInteger.valueOf(newDirectorySpace));
             directoryRepository.save(updateDirAccessedDay(directoryDto));
             return true;

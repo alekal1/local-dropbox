@@ -25,6 +25,7 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 
+import static ee.cyber.intern.fileserver.constant.C.MAPPER;
 import static ee.cyber.intern.fileserver.helper.Companion.*;
 
 /***
@@ -33,7 +34,6 @@ import static ee.cyber.intern.fileserver.helper.Companion.*;
 @Service
 public class FileService {
     private final FileRepository fileRepository;
-    private final FileStorageMapper mapper = Mappers.getMapper(FileStorageMapper.class);
     private final ServletContext servletContext;
 
     @Autowired
@@ -54,7 +54,7 @@ public class FileService {
         fileDto.setFilePath(filePath.toString());
 
         /* Map dto into entity and save it */
-        FileEntity entity = mapper.fileDtoToEntity(fileDto);
+        FileEntity entity = MAPPER.fileDtoToEntity(fileDto);
         fileRepository.save(entity);
     }
 
@@ -68,7 +68,7 @@ public class FileService {
             InputStreamResource res = new InputStreamResource(new FileInputStream(file));
 
             /* Update file accessed day */
-            fileRepository.save(updateFileAccessedDay(mapper.fileEntityToDto(entity)));
+            fileRepository.save(updateFileAccessedDay(MAPPER.fileEntityToDto(entity)));
 
             return ResponseEntity.ok()
                     .header(HttpHeaders.CONTENT_DISPOSITION, "attachment;filename=" + file.getName())

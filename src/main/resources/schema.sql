@@ -1,4 +1,4 @@
-CREATE TABLE directory (
+                                         CREATE TABLE directory (
   id               IDENTITY     NOT NULL,
   parent_dir_id    BIGINT,
   name             VARCHAR(255) NOT NULL,
