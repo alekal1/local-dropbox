@@ -6,6 +6,9 @@ import lombok.Data;
 import java.math.BigInteger;
 import java.time.LocalDate;
 
+/***
+ * Data transfer object represent prototype of object in table file of database
+ */
 @Data
 public class FileDto {
     private Long id;

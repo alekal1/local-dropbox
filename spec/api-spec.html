@@ -196,27 +196,27 @@ font-style: italic;
   <div class="method-summary"></div>
   <h4><a href="#Default">Default</a></h4>
   <ul>
-  <li><a href="#dirDirIdDelete"><code><span class="http-method">delete</span> /dir/{dirId}</code></a></li>
-  <li><a href="#dirDirIdFilePost"><code><span class="http-method">post</span> /dir/{dirId}/file</code></a></li>
-  <li><a href="#dirDirIdGet"><code><span class="http-method">get</span> /dir/{dirId}</code></a></li>
-  <li><a href="#dirDirIdPost"><code><span class="http-method">post</span> /dir/{dirId}</code></a></li>
+  <li><a href="#dirDirIdDelete"><code><span class="http-method">delete</span> /dir/{id}</code></a></li>
+  <li><a href="#dirDirIdFilePost"><code><span class="http-method">post</span> /dir/{id}/file</code></a></li>
+  <li><a href="#dirDirIdGet"><code><span class="http-method">get</span> /dir/{id}</code></a></li>
+  <li><a href="#dirDirIdPost"><code><span class="http-method">post</span> /dir/{id}</code></a></li>
   <li><a href="#dirGet"><code><span class="http-method">get</span> /dir</code></a></li>
   <li><a href="#dirPost"><code><span class="http-method">post</span> /dir</code></a></li>
-  <li><a href="#fileFileIdDelete"><code><span class="http-method">delete</span> /file/{fileId}</code></a></li>
-  <li><a href="#fileFileIdGet"><code><span class="http-method">get</span> /file/{fileId}</code></a></li>
+  <li><a href="#fileFileIdDelete"><code><span class="http-method">delete</span> /file/{id}</code></a></li>
+  <li><a href="#fileFileIdGet"><code><span class="http-method">get</span> /file/{id}</code></a></li>
   </ul>
 
   <h1><a name="Default">Default</a></h1>
   <div class="method"><a name="dirDirIdDelete"/>
     <div class="method-path">
     <a class="up" href="#__Methods">Up</a>
-    <pre class="delete"><code class="huge"><span class="http-method">delete</span> /dir/{dirId}</code></pre></div>
+    <pre class="delete"><code class="huge"><span class="http-method">delete</span> /dir/{id}</code></pre></div>
     <div class="method-summary">Delete (empty) directory with given ID. (<span class="nickname">dirDirIdDelete</span>)</div>
     <div class="method-notes"></div>
 
     <h3 class="field-label">Path parameters</h3>
     <div class="field-items">
-      <div class="param">dirId (required)</div>
+      <div class="param">id (required)</div>
 
       <div class="param-desc"><span class="param-type">Path Parameter</span> &mdash; ID of parent directory. format: int64</div>
     </div>  <!-- field-items -->
@@ -256,13 +256,13 @@ font-style: italic;
   <div class="method"><a name="dirDirIdFilePost"/>
     <div class="method-path">
     <a class="up" href="#__Methods">Up</a>
-    <pre class="post"><code class="huge"><span class="http-method">post</span> /dir/{dirId}/file</code></pre></div>
+    <pre class="post"><code class="huge"><span class="http-method">post</span> /dir/{id}/file</code></pre></div>
     <div class="method-summary">Create new file under directory with given ID. (<span class="nickname">dirDirIdFilePost</span>)</div>
     <div class="method-notes"></div>
 
     <h3 class="field-label">Path parameters</h3>
     <div class="field-items">
-      <div class="param">dirId (required)</div>
+      <div class="param">id (required)</div>
 
       <div class="param-desc"><span class="param-type">Path Parameter</span> &mdash; ID of parent directory. format: int64</div>
     </div>  <!-- field-items -->
@@ -308,13 +308,13 @@ font-style: italic;
   <div class="method"><a name="dirDirIdGet"/>
     <div class="method-path">
     <a class="up" href="#__Methods">Up</a>
-    <pre class="get"><code class="huge"><span class="http-method">get</span> /dir/{dirId}</code></pre></div>
+    <pre class="get"><code class="huge"><span class="http-method">get</span> /dir/{id}</code></pre></div>
     <div class="method-summary">List directory contents. (<span class="nickname">dirDirIdGet</span>)</div>
     <div class="method-notes"></div>
 
     <h3 class="field-label">Path parameters</h3>
     <div class="field-items">
-      <div class="param">dirId (required)</div>
+      <div class="param">id (required)</div>
 
       <div class="param-desc"><span class="param-type">Path Parameter</span> &mdash; ID of parent directory. format: int64</div>
     </div>  <!-- field-items -->
@@ -369,13 +369,13 @@ font-style: italic;
   <div class="method"><a name="dirDirIdPost"/>
     <div class="method-path">
     <a class="up" href="#__Methods">Up</a>
-    <pre class="post"><code class="huge"><span class="http-method">post</span> /dir/{dirId}</code></pre></div>
+    <pre class="post"><code class="huge"><span class="http-method">post</span> /dir/{id}</code></pre></div>
     <div class="method-summary">Create new subdirectory under directory with given ID. (<span class="nickname">dirDirIdPost</span>)</div>
     <div class="method-notes"></div>
 
     <h3 class="field-label">Path parameters</h3>
     <div class="field-items">
-      <div class="param">dirId (required)</div>
+      <div class="param">id (required)</div>
 
       <div class="param-desc"><span class="param-type">Path Parameter</span> &mdash; ID of parent directory. format: int64</div>
     </div>  <!-- field-items -->
@@ -518,13 +518,13 @@ font-style: italic;
   <div class="method"><a name="fileFileIdDelete"/>
     <div class="method-path">
     <a class="up" href="#__Methods">Up</a>
-    <pre class="delete"><code class="huge"><span class="http-method">delete</span> /file/{fileId}</code></pre></div>
+    <pre class="delete"><code class="huge"><span class="http-method">delete</span> /file/{id}</code></pre></div>
     <div class="method-summary">Delete file with given ID. (<span class="nickname">fileFileIdDelete</span>)</div>
     <div class="method-notes"></div>
 
     <h3 class="field-label">Path parameters</h3>
     <div class="field-items">
-      <div class="param">fileId (required)</div>
+      <div class="param">id (required)</div>
 
       <div class="param-desc"><span class="param-type">Path Parameter</span> &mdash; ID of file. format: int64</div>
     </div>  <!-- field-items -->
@@ -564,13 +564,13 @@ font-style: italic;
   <div class="method"><a name="fileFileIdGet"/>
     <div class="method-path">
     <a class="up" href="#__Methods">Up</a>
-    <pre class="get"><code class="huge"><span class="http-method">get</span> /file/{fileId}</code></pre></div>
+    <pre class="get"><code class="huge"><span class="http-method">get</span> /file/{id}</code></pre></div>
     <div class="method-summary">Download file with given ID. (<span class="nickname">fileFileIdGet</span>)</div>
     <div class="method-notes"></div>
 
     <h3 class="field-label">Path parameters</h3>
     <div class="field-items">
-      <div class="param">fileId (required)</div>
+      <div class="param">id (required)</div>
 
       <div class="param-desc"><span class="param-type">Path Parameter</span> &mdash; ID of file. format: int64</div>
     </div>  <!-- field-items -->

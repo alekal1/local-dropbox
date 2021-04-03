@@ -13,9 +13,8 @@ import java.util.List;
 import static ee.cyber.intern.fileserver.constant.C.DIRECTORY_API_PATH;
 
 /***
- * Directory controller to handle requests method
+ * Directory controller to handle requests method for directories
  */
-
 @RestController
 @RequestMapping(path = DIRECTORY_API_PATH)
 public class DirectoryController {
@@ -37,16 +36,10 @@ public class DirectoryController {
         return directoryService.getDirectoryById(id);
     }
 
-
     @SneakyThrows
     @PostMapping
     public DirectoryDto createDirectory(@RequestBody DirectoryDto directoryDto)  {
         return directoryService.createDirectory(directoryDto);
-    }
-
-    @DeleteMapping("/{id}")
-    public void deleteDirectory(@PathVariable Long id) {
-        directoryService.deleteDirectory(id);
     }
 
     @PostMapping("/{id}")
@@ -57,5 +50,10 @@ public class DirectoryController {
     @PostMapping("/{id}/file")
     public void uploadFile(@RequestParam(value = "file") MultipartFile multipartFile, @PathVariable Long id) throws IOException {
         directoryService.uploadFile(multipartFile, id);
+    }
+
+    @DeleteMapping("/{id}")
+    public void deleteDirectory(@PathVariable Long id) {
+        directoryService.deleteDirectory(id);
     }
 }

@@ -22,7 +22,6 @@ public class FileEntity {
     @Column(name = "created_on")
     private LocalDate createdOn;
 
-
     @Column(name = "last_accessed_on")
     private LocalDate lastAccessedOn;
 

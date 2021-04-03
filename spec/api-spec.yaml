@@ -46,10 +46,10 @@ paths:
               $ref: '#/definitions/FileServerObjectDTO'
 
 
-  /dir/{dirId}:
+  /dir/{id}:
     parameters:
       - in: path
-        name: dirId
+        name: id
         description: ID of parent directory.
         type: integer
         format: int64
@@ -96,10 +96,10 @@ paths:
 
 
 
-  /dir/{dirId}/file:
+  /dir/{id}/file:
     parameters:
       - in: path
-        name: dirId
+        name: id
         description: ID of parent directory.
         type: integer
         format: int64
@@ -125,10 +125,10 @@ paths:
 
 
 
-  /file/{fileId}:
+  /file/{id}:
     parameters:
       - in: path
-        name: fileId
+        name: id
         description: ID of file.
         type: integer
         format: int64

@@ -16,32 +16,25 @@ import java.io.FileInputStream;
 import static ee.cyber.intern.fileserver.constant.C.FILE_API_PATH;
 import static ee.cyber.intern.fileserver.helper.Companion.getMediaTypeForFileName;
 
+/***
+ * File controller to handle requests method for files
+ */
 @RestController
 @RequestMapping(path = FILE_API_PATH)
 public class FileController {
 
-    private final ServletContext servletContext;
 
     private final FileService fileService;
 
     @Autowired
-    public FileController(FileService fileService, ServletContext servletContext) {
+    public FileController(FileService fileService) {
         this.fileService = fileService;
-        this.servletContext = servletContext;
     }
 
     @SneakyThrows
     @GetMapping("/{id}")
     public ResponseEntity<InputStreamResource> downloadFile(@PathVariable Long id) {
-        File file = fileService.getFile(id);
-        MediaType mediaType = getMediaTypeForFileName(servletContext, file.getName());
-        InputStreamResource res = new InputStreamResource(new FileInputStream(file));
-
-        return ResponseEntity.ok()
-                .header(HttpHeaders.CONTENT_DISPOSITION, "attachment;filename=" + file.getName())
-                .contentType(mediaType)
-                .contentLength(file.length())
-                .body(res);
+        return fileService.downloadFile(id);
     }
 
     @DeleteMapping("/{id}")

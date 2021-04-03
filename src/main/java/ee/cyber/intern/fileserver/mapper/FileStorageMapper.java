@@ -6,6 +6,9 @@ import ee.cyber.intern.fileserver.entities.dto.DirectoryDto;
 import ee.cyber.intern.fileserver.entities.dto.FileDto;
 import org.mapstruct.Mapper;
 
+/***
+ * Mapper class for mapping between objects and their DTOs
+ */
 @Mapper
 public interface FileStorageMapper {
     FileDto fileEntityToDto(FileEntity file);

@@ -27,7 +27,7 @@ import static ee.cyber.intern.fileserver.helper.Companion.updateDirAccessedDay;
 
 
 /***
- * Service class for business logic
+ * Service class for directory business logic
  */
 @Service
 public class DirectoryService {
@@ -44,6 +44,7 @@ public class DirectoryService {
         this.fileService = fileService;
     }
 
+    /** Gets all directories from database */
     public List<DirectoryDto> getAllDirectories() {
         List<DirectoryEntity> allDirectories = directoryRepository.findAll();
         return allDirectories.stream()
@@ -51,6 +52,7 @@ public class DirectoryService {
                 .collect(Collectors.toList());
     }
 
+    /** Get directory by id */
     public DirectoryDto getDirectoryById(Long id) {
         if (directoryExists(id)) {
             DirectoryEntity directory = directoryRepository.findById(id).get();
@@ -59,6 +61,7 @@ public class DirectoryService {
         return null;
     }
 
+    /** Create directory from given directoryDto */
     @SneakyThrows
     public DirectoryDto createDirectory(DirectoryDto directoryDto){
         /* Top level directory will have local storage path */
@@ -77,12 +80,14 @@ public class DirectoryService {
         throw new DirectoryAlreadyExistsException(); // Throw custom exception
     }
 
+    /** Delete directory by it's id */
     @SneakyThrows
     public void deleteDirectory(Long id) {
         if (directoryExists(id) && directoryIsEmpty(id)) {
             /* Since already checked directory can use get() method since Optional will be always present */
             DirectoryEntity entity = directoryRepository.findById(id).get();
 
+            /* Delete also from localStorage */
             deleteDirFromLocalStorage(entity);
 
             directoryRepository.deleteById(id);
@@ -90,6 +95,7 @@ public class DirectoryService {
     }
 
 
+    /** Creates sub directory if given directory */
     public DirectoryDto createSubDirectory(DirectoryDto directoryDto, Long id) {
         if (directoryExists(id)) {
             /* Since already checked directory can use get() method since Optional will be always present */
@@ -113,6 +119,7 @@ public class DirectoryService {
         return null;
     }
 
+    /** Uploads file to directory */
     public void uploadFile(MultipartFile multipartFile, Long id) throws IOException {
         if (directoryExists(id)) {
             DirectoryEntity dir = directoryRepository.findById(id).get();
@@ -126,6 +133,7 @@ public class DirectoryService {
         }
     }
 
+    /** Helper method to create directory in local storage */
     @SneakyThrows
     private Boolean createLocalDirectory(Path directoryPath) {
         if (!Files.exists(directoryPath)) {
@@ -135,12 +143,14 @@ public class DirectoryService {
         return false;
     }
 
+    /** Helper method to delete directory from local storage */
     @SneakyThrows
     private void deleteDirFromLocalStorage(DirectoryEntity entity) {
         Path dirPath = Paths.get(entity.getDirectoryPath());
         Files.delete(dirPath);
     }
 
+    /** Helper method to check if directory is empty */
     private Boolean directoryIsEmpty(Long id) {
         DirectoryEntity directory = directoryRepository.findById(id).get();
         File dir = new File(localStoragePath + directory.getName());
@@ -150,6 +160,7 @@ public class DirectoryService {
         } throw new DirectoryIsNotEmptyException();
     }
 
+    /** Helper method to check if directory exists */
     private Boolean directoryExists(Long id) {
         if (directoryRepository.existsById(id)) {
             return true;
@@ -157,6 +168,7 @@ public class DirectoryService {
         throw new DirectoryNotFoundException();
     }
 
+    /** Helper method to check if directory space is lower than file size */
     private Boolean checkDirectorySpace(DirectoryEntity directoryEntity, MultipartFile file) {
         if (file.getSize() < directoryEntity.getSize().longValue()) {
             long newDirectorySpace = directoryEntity.getSize().longValue() - file.getSize();
