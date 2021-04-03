@@ -1,0 +1,198 @@
+swagger: '2.0'
+host: 'localhost:8080'
+basePath: /api
+info:
+  version: v1
+  title: FileServer API Specification
+schemes:
+  - http
+consumes:
+  - application/json
+  - multipart/form-data
+produces:
+  - application/json
+  - multipart/form-data
+
+
+paths:
+
+  /dir:
+    post:
+      summary: Create new top-level directory.
+      parameters:
+        - in: body
+          name: newDirDTO
+          description: Data of the new directory.
+          required: true
+          schema:
+            $ref: '#/definitions/NewDirDTO'
+
+      responses:
+        201:
+          description: Directory created.
+          headers:
+            Location:
+              description: URL of created directory.
+              type: string
+
+    get:
+      summary: List top-level directory contents.
+      responses:
+        200:
+          description: Listing successful.
+          schema:
+            type: array
+            items:
+              $ref: '#/definitions/FileServerObjectDTO'
+
+
+  /dir/{dirId}:
+    parameters:
+      - in: path
+        name: dirId
+        description: ID of parent directory.
+        type: integer
+        format: int64
+        required: true
+
+    post:
+      summary: Create new subdirectory under directory with given ID.
+      parameters:
+        - in: body
+          name: newDirDTO
+          description: Data of the new directory.
+          required: true
+          schema:
+            $ref: '#/definitions/NewDirDTO'
+      responses:
+        201:
+          description: Directory created.
+          headers:
+            Location:
+              description: URL of created directory.
+              type: string
+        400:
+          description: No directory found with given ID.
+
+    get:
+      summary: List directory contents.
+      responses:
+        200:
+          description: Listing successful.
+          schema:
+            type: array
+            items:
+              $ref: '#/definitions/FileServerObjectDTO'
+        400:
+          description: No directory found with given ID.
+
+    delete:
+      summary: Delete (empty) directory with given ID.
+      responses:
+        200:
+          description: Deletion successful.
+        400:
+          description: No directory found with given ID or this directory is not empty.
+
+
+
+  /dir/{dirId}/file:
+    parameters:
+      - in: path
+        name: dirId
+        description: ID of parent directory.
+        type: integer
+        format: int64
+        required: true
+
+    post:
+      summary: Create new file under directory with given ID.
+      parameters:
+        - in: formData
+          name: file
+          type: file
+          description: Content of new file.
+          required: true
+      responses:
+        201:
+          description: File created.
+          headers:
+            Location:
+              description: URL of created file.
+              type: string
+        400:
+          description: No directory found with given ID.
+
+
+
+  /file/{fileId}:
+    parameters:
+      - in: path
+        name: fileId
+        description: ID of file.
+        type: integer
+        format: int64
+        required: true
+
+    get:
+      summary: Download file with given ID.
+      responses:
+        200:
+          description: Requested file.
+          schema:
+            type: file
+        400:
+          description: No file found with given ID.
+
+    delete:
+      summary: Delete file with given ID.
+      responses:
+        200:
+          description: Deletion successful.
+        400:
+          description: No file found with given ID.
+
+
+
+definitions:
+
+  NewDirDTO:
+    type: object
+    properties:
+      name:
+        type: string
+        description: Name of the new directory.
+
+  FileServerObjectDTO:
+    description: Object represeting either a file or a directory (determined by object_type).
+    type: object
+    properties:
+      id:
+        description: ID of this file or directory.
+        type: integer
+        format: int64
+      object_type:
+        $ref: '#/definitions/FileServerObjectType'
+      name:
+        description: Name of this file or directory.
+        type: string
+      created_on:
+        description: Creation date of this file or directory.
+        type: string
+        format: date
+      accessed_on:
+        description: Last access date if this is a file, null if this a directory.
+        type: string
+        format: date
+      size:
+        description: Size of file in bytes if this is a file, null if this a directory.
+        type: integer
+        format: int64
+
+  # file/dir enum
+  FileServerObjectType:
+    type: string
+    description: Type of object, either file or directory.
+    enum:
+      - FILE
+      - DIR
