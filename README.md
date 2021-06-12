@@ -127,10 +127,16 @@ Basic test cases can be found `src/test/java/ee.cyber/intern/fileserver/controll
 
 ## Deploying
 
-The server can should be deployed using Gradle's `bootRun` task. Using the included Gradle wrapper:
+The server can be deployed using Gradle's `bootRun` task. Using the included Gradle wrapper:
 
 ```
 ./gradlew bootRun
 ```
 
 This will start an embedded Tomcat server on port 8080 (by default).
+
+
+## Docker
+
+You can run application using `docker-compose up` command.
+The ports will be the same
