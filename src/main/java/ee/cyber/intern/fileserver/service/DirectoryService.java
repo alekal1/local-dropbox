@@ -7,9 +7,7 @@ import ee.cyber.intern.fileserver.exceptions.directory.DirectoryAlreadyExistsExc
 import ee.cyber.intern.fileserver.exceptions.directory.DirectoryIsNotEmptyException;
 import ee.cyber.intern.fileserver.exceptions.directory.DirectoryNotFoundException;
 import ee.cyber.intern.fileserver.exceptions.directory.DirectorySpaceFullException;
-import ee.cyber.intern.fileserver.mapper.FileStorageMapper;
 import lombok.SneakyThrows;
-import org.mapstruct.factory.Mappers;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;

@@ -18,7 +18,6 @@ import static ee.cyber.intern.fileserver.constant.C.MAPPER;
  */
 public class Companion {
 
-
     /* Get today date in format year-month-day */
     public static LocalDate getTodayDate() {
         int year = Calendar.getInstance().get(Calendar.YEAR);
