@@ -1,0 +1,7 @@
+version: "3.9"
+services:
+  file-server-back:
+    image: fileserver:latest
+    container_name: fileserver-back
+    ports:
+    - 8080:8080
